@@ -29,6 +29,14 @@ jobs:
           name: Run Tests
           command: ./gradlew testDebug
 
+      - run:
+          name: Check
+          command: |
+              if [ ! $CIRCLE_BRANCH = 'master' ]; then
+                  ./gradlew --stacktrace lintDebug
+                  ./gradlew --stacktrace ktlintDebugCheck
+              fi
+
       - store_artifacts:
           path: app/build/outputs
           destination: outputs
