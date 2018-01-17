@@ -7,9 +7,9 @@ interface ValidatableView {
 
     fun validate(): Completable
 
-    fun register(validator: VtlValidator)
+    fun register(validator: VtlValidator): ValidatableView
 
-    fun register(validators: List<VtlValidator>)
+    fun register(validators: List<VtlValidator>): ValidatableView
 
     fun clearValidators()
 }

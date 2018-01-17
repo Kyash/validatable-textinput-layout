@@ -12,14 +12,12 @@ android {
     dataBinding.enabled = true
 
     defaultConfig {
-        applicationId "co.kyash.vtl"
+        applicationId "co.kyash.vtl.sample"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "$versionMajor.$versionMinor.$versionPatch"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
-        vectorDrawables.useSupportLibrary = true
     }
     signingConfigs {
         release {
@@ -28,6 +26,9 @@ android {
             keyAlias "androiddebugkey"
             keyPassword "android"
         }
+    }
+    dexOptions {
+        preDexLibraries false
     }
     buildTypes {
         debug {

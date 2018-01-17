@@ -5,6 +5,7 @@ import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.filters.LargeTest
+import co.kyash.vtl.sample.MainActivity
 import org.junit.Rule
 import org.junit.Test
 

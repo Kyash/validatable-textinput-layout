@@ -5,7 +5,6 @@
         <attr name="trigger">
             <flag name="focus_changed" value="1" />
             <flag name="text_changed" value="2" />
-            <flag name="none" value="3" />
         </attr>
         <attr name="enable_floating_label" format="boolean" />
     </declare-styleable>

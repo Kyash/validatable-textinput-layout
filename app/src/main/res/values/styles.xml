@@ -1,3 +1,10 @@
 <resources>
-    
+
+    <!--==================== EditText ====================-->
+    <style name="BaseEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
+    </style>
+
 </resources>

@@ -160,11 +160,12 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
         }
     }
 
-    override fun register(validator: VtlValidator) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun register(validator: VtlValidator): ValidatableView {
+        register(arrayListOf(validator))
+        return this
     }
 
-    override fun register(validators: List<VtlValidator>) {
+    override fun register(validators: List<VtlValidator>): ValidatableView {
         clearValidators()
 
         this.validators.addAll(validators)
@@ -180,6 +181,7 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
                                 .toFlowable(BackpressureStrategy.BUFFER)
                     }
         }
+        return this
     }
 
     override fun clearValidators() {
