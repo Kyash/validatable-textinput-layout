@@ -141,6 +141,7 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
                 return false
             }
         }
+        clearErrorMessage()
         return true
     }
 

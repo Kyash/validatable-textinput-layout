@@ -12,22 +12,27 @@ import org.robolectric.RuntimeEnvironment
 
 @Suppress("unused")
 @RunWith(ParameterizedRobolectricTestRunner::class)
-class RequiredValidatorTest(
+class EmailValidatorTest(
         private val text: String?,
         private val result: Boolean,
         private val errorMessage: String?
 ) {
 
     companion object {
-        private val ERROR_MESSAGE = "This field is required"
+        private val ERROR_MESSAGE = "This is invalid email"
 
         @JvmStatic
         @ParameterizedRobolectricTestRunner.Parameters
         fun data(): List<Array<out Any?>> {
             return listOf(
-                    arrayOf(null, false, ERROR_MESSAGE),
+                    arrayOf("konifar", false, ERROR_MESSAGE),
+                    arrayOf("@", false, ERROR_MESSAGE),
+                    arrayOf("konifar@", false, ERROR_MESSAGE),
+                    arrayOf("@gmail", false, ERROR_MESSAGE),
+                    arrayOf("あ@gmail", false, ERROR_MESSAGE),
                     arrayOf("", false, ERROR_MESSAGE),
-                    arrayOf("konifar", true, null)
+                    arrayOf("konifar@gmail", true, null),
+                    arrayOf("konifar@gmail.com", true, null)
             )
         }
     }
@@ -42,7 +47,7 @@ class RequiredValidatorTest(
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        subject = RequiredValidator(ERROR_MESSAGE)
+        subject = EmailValidator(ERROR_MESSAGE)
     }
 
     @Test
