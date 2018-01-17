@@ -5,7 +5,9 @@ import io.reactivex.Completable
 
 interface ValidatableView {
 
-    fun validate(): Completable
+    fun validate(): Boolean
+
+    fun validateAsCompletable(): Completable
 
     fun register(validator: VtlValidator): ValidatableView
 

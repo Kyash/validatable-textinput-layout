@@ -45,6 +45,7 @@ dependencies {
     //==================== Test ====================
     testImplementation depends.junit
     testImplementation depends.mockitoKotlin
+    testImplementation depends.robolectric.core
 }
 
 // build a jar with source files
