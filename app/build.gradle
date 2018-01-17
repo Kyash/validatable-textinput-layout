@@ -18,6 +18,7 @@ android {
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "$versionMajor.$versionMinor.$versionPatch"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
     signingConfigs {
@@ -59,6 +60,7 @@ dependencies {
 
     //==================== Support Library ====================
     implementation depends.support.appcompat
+    implementation depends.support.design
 
     //==================== Structure ====================
     implementation depends.rxjava2.core

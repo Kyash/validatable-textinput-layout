@@ -1,4 +1,4 @@
-package co.kyash.validatable_textinput_layout
+package co.kyash.vtl
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

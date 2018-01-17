@@ -36,6 +36,7 @@ dependencies {
 
     //==================== Support Library ====================
     implementation depends.support.appcompat
+    implementation depends.support.design
 
     //==================== Structure ====================
     implementation depends.rxjava2.core
