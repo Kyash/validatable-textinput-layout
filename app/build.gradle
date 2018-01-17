@@ -1,18 +1,25 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
+apply plugin: 'io.fabric'
+
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 0
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion versions.compileSdk
     dataBinding.enabled = true
 
     defaultConfig {
         applicationId "co.kyash.vtl"
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "$versionMajor.$versionMinor.$versionPatch"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        resConfigs "en", "ja"
     }
     buildTypes {
         debug {
@@ -37,17 +44,27 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
-    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    //==================== Kotlin ====================
+    implementation depends.kotlin.stdlib
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    //==================== Support Library ====================
+    implementation depends.support.appcompat
+
+    //==================== Debug ====================
+    implementation(depends.crashlytics) {
+        transitive = true
+    }
+
+    //==================== Test ====================
+    testImplementation depends.junit
+    testImplementation depends.mockitoKotlin
+    testImplementation depends.robolectric.core
+    androidTestImplementation depends.supporttest.runner
+    androidTestImplementation depends.supporttest.espresso
 }
 
 ktlint {
-    version = "0.14.0"
+    version = versions.ktlint
     android = true
     reporter = "checkstyle"
     ignoreFailures = true
