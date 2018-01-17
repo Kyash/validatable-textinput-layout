@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun validate(): Completable {
-        val validations: List<Completable> = validatableViews.map { it.validate() }
+        val validations: List<Completable> = validatableViews.map { it.validateAsCompletable() }
 
         return Completable.mergeDelayError(validations)
                 .subscribeOn(Schedulers.computation())

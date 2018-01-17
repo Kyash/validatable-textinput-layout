@@ -8,7 +8,6 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
@@ -31,7 +30,6 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
 ) : TextInputLayout(context, attrs, defStyleAttr), ValidatableView {
 
     companion object {
-        private val TAG = "VTL"
         private val FOCUS_CHANGED = 1
         private val TEXT_CHANGED = 1 shl 1
     }
@@ -39,7 +37,7 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
     private var shouldValidateOnFocusChanged: Boolean = false
     private var shouldValidateOnTextChanged: Boolean = false
     private var shouldValidateOnTextChangedOnce: Boolean = false
-    private var validationInterval: Long = 300
+    private var validationInterval: Long = 300L
 
     init {
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.ValidatableTextInputLayout, 0, 0)
@@ -52,7 +50,7 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
         // http://stackoverflow.com/a/35819605
         if (!enableFloatingLabel) hint = " "
 
-        val validationInterval = a.getInteger(R.styleable.ValidatableTextInputLayout_interval, 300)
+        validationInterval = a.getInteger(R.styleable.ValidatableTextInputLayout_interval, 300).toLong()
 
         a.recycle()
     }
@@ -98,7 +96,7 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
             if (shouldValidateOnFocusChanged) {
                 compositeDisposable.clear()
                 compositeDisposable.add(
-                        validate().subscribe(Functions.EMPTY_ACTION, Consumer<Throwable> {})
+                        validateAsCompletable().subscribe(Functions.EMPTY_ACTION, Consumer<Throwable> {})
                 )
             }
         }
@@ -136,9 +134,19 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
         }
     }
 
-    override fun validate(): Completable {
+    override fun validate(): Boolean {
+        validators.forEach {
+            if (!it.validate(getText())) {
+                showErrorMessage(it.getErrorMessage())
+                return false
+            }
+        }
+        return true
+    }
+
+    override fun validateAsCompletable(): Completable {
         val validations: List<Completable> = validators.map {
-            it.validate(context, getText())
+            it.validateAsCompletable(context, getText())
         }
 
         return Completable.mergeDelayError(validations)
@@ -176,7 +184,7 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
                     .throttleLast(validationInterval, TimeUnit.MILLISECONDS)
                     // hack to emit an event to `onNext` when completable is completed.
                     .flatMap<Any> { x ->
-                        it.validate(context, x)
+                        it.validateAsCompletable(context, x)
                                 .toSingleDefault(Any())
                                 .toObservable()
                                 .toFlowable(BackpressureStrategy.BUFFER)
@@ -202,10 +210,11 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
     }
 
     private fun showErrorMessage(throwable: Throwable) {
-        Log.e(TAG, "Validation error", throwable)
-
         val errorMessage = VtlValidationFailureException.getErrorMessage(throwable)
+        showErrorMessage(errorMessage)
+    }
 
+    private fun showErrorMessage(errorMessage: String?) {
         if (errorMessage != null) {
             mainHandler.post {
                 error = errorMessage

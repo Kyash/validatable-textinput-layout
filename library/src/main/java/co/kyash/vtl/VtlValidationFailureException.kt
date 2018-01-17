@@ -1,6 +1,8 @@
 package co.kyash.vtl
 
-class VtlValidationFailureException(val errorMessage: String) : RuntimeException() {
+class VtlValidationFailureException(
+        private val errorMessage: String
+) : RuntimeException(errorMessage) {
 
     companion object {
         fun getErrorMessage(throwable: Throwable?): String? {

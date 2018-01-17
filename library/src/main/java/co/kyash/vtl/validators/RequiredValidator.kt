@@ -10,12 +10,20 @@ class RequiredValidator(
         private val errorMessage: String
 ) : VtlValidator {
 
-    override fun validate(context: Context, text: String): Completable {
+    override fun validateAsCompletable(context: Context, text: String?): Completable {
         return Completable.fromRunnable {
-            if (TextUtils.isEmpty(text)) {
+            if (!validate(text)) {
                 throw VtlValidationFailureException(errorMessage)
             }
         }.subscribeOn(Schedulers.computation())
+    }
+
+    override fun validate(text: String?): Boolean {
+        return !TextUtils.isEmpty(text)
+    }
+
+    override fun getErrorMessage(): String {
+        return errorMessage
     }
 
 }
