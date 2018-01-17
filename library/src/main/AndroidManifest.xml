@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="co.kyash.validatable_textinput_layout" />
+<manifest package="co.kyash.vtl" />

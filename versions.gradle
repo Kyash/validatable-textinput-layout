@@ -11,6 +11,7 @@ ext {
             ktlintGradle    : "3.0.0",
             fabricGradleTool: "1.25.1",
             supportLibrary  : "26.1.0",
+            espresso        : "3.0.1",
     ]
 
     depends = [
@@ -36,6 +37,9 @@ ext {
                     android: "io.reactivex.rxjava2:rxandroid:2.0.1",
                     kotlin : "io.reactivex.rxjava2:rxkotlin:2.2.0",
             ],
+            binding      : [
+                    compiler: "com.android.databinding:compiler:3.0.1",
+            ],
 
             //==================== Test ====================
             junit        : "junit:junit:4.12",
@@ -46,6 +50,10 @@ ext {
             supporttest  : [
                     runner  : "com.android.support.test:runner:1.0.1",
                     espresso: "com.android.support.test.espresso:espresso-core:3.0.1"
+            ],
+            espresso     : [
+                    core   : "com.android.support.test.espresso:espresso-core:$versions.espresso",
+                    intents: "com.android.support.test.espresso:espresso-intents:$versions.espresso"
             ],
     ]
 }

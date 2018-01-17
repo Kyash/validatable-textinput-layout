@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: 'io.fabric'
 
@@ -12,13 +13,12 @@ android {
     dataBinding.enabled = true
 
     defaultConfig {
-        applicationId "co.kyash.vtl"
+        applicationId "co.kyash.vtl.sample"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "$versionMajor.$versionMinor.$versionPatch"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
     }
     signingConfigs {
         release {
@@ -27,6 +27,9 @@ android {
             keyAlias "androiddebugkey"
             keyPassword "android"
         }
+    }
+    dexOptions {
+        preDexLibraries false
     }
     buildTypes {
         debug {
@@ -59,11 +62,13 @@ dependencies {
 
     //==================== Support Library ====================
     implementation depends.support.appcompat
+    implementation depends.support.design
 
     //==================== Structure ====================
     implementation depends.rxjava2.core
     implementation depends.rxjava2.android
     implementation depends.rxjava2.kotlin
+    kapt depends.binding.compiler
 
     //==================== Debug ====================
     implementation(depends.crashlytics) {
@@ -76,6 +81,8 @@ dependencies {
     testImplementation depends.robolectric.core
     androidTestImplementation depends.supporttest.runner
     androidTestImplementation depends.supporttest.espresso
+    androidTestImplementation depends.espresso.core
+    androidTestImplementation depends.espresso.intents
 }
 
 ktlint {

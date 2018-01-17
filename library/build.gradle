@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 
 def versionMajor = 0
@@ -36,6 +37,7 @@ dependencies {
 
     //==================== Support Library ====================
     implementation depends.support.appcompat
+    implementation depends.support.design
 
     //==================== Structure ====================
     implementation depends.rxjava2.core

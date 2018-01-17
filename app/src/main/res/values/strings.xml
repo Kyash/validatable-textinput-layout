@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ValidatableTextInputView</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="submit">Submit</string>
+
+    <string name="validation_error_required">%1$s is required</string>
+    <string name="validation_error_kana">%1$s permits only Kana</string>
+
+    <string name="validation_error_occurred">Error occurred</string>
+    <string name="validation_success">Success</string>
 </resources>
