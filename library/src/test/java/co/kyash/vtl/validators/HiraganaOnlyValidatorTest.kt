@@ -25,11 +25,12 @@ class HiraganaOnlyValidatorTest(
         @ParameterizedRobolectricTestRunner.Parameters
         fun data(): List<Array<out Any?>> {
             return listOf(
-                    arrayOf("", false, ERROR_MESSAGE),
                     arrayOf("a", false, ERROR_MESSAGE),
                     arrayOf("ア", false, ERROR_MESSAGE),
                     arrayOf("阿", false, ERROR_MESSAGE),
                     arrayOf("あ阿", false, ERROR_MESSAGE),
+                    arrayOf(null, true, null),
+                    arrayOf("", true, null),
                     arrayOf("ぁあぃいぅうぇえぉおかがきぎくぐけげこご" +
                             "さざしじすずせぜそぞただちぢっつづてでとど" +
                             "なにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめも" +
