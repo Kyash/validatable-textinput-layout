@@ -19,7 +19,14 @@ android {
         versionName "$versionMajor.$versionMinor.$versionPatch"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        resConfigs "en", "ja"
+    }
+    signingConfigs {
+        release {
+            storeFile file("debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
     }
     buildTypes {
         debug {
@@ -31,6 +38,7 @@ android {
             zipAlignEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     testOptions {
@@ -44,11 +52,18 @@ android {
 }
 
 dependencies {
+    implementation project(':library')
+
     //==================== Kotlin ====================
     implementation depends.kotlin.stdlib
 
     //==================== Support Library ====================
     implementation depends.support.appcompat
+
+    //==================== Structure ====================
+    implementation depends.rxjava2.core
+    implementation depends.rxjava2.android
+    implementation depends.rxjava2.kotlin
 
     //==================== Debug ====================
     implementation(depends.crashlytics) {

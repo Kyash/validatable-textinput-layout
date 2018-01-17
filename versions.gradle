@@ -5,6 +5,7 @@ ext {
             minSdk          : 19,
             targetSdk       : 26,
             gradleBuildTool : "3.0.1",
+            mavenGradle     : "2.0",
             kotlin          : "1.2.10",
             ktlint          : "0.14.0",
             ktlintGradle    : "3.0.0",
@@ -28,6 +29,13 @@ ext {
             ],
 
             crashlytics  : "com.crashlytics.sdk.android:crashlytics:2.8.0@aar",
+
+            //==================== Structure ====================
+            rxjava2      : [
+                    core   : "io.reactivex.rxjava2:rxjava:2.1.8",
+                    android: "io.reactivex.rxjava2:rxandroid:2.0.1",
+                    kotlin : "io.reactivex.rxjava2:rxkotlin:2.2.0",
+            ],
 
             //==================== Test ====================
             junit        : "junit:junit:4.12",
