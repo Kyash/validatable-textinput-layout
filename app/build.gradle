@@ -76,6 +76,8 @@ dependencies {
     testImplementation depends.robolectric.core
     androidTestImplementation depends.supporttest.runner
     androidTestImplementation depends.supporttest.espresso
+    androidTestImplementation depends.espresso.core
+    androidTestImplementation depends.espresso.intents
 }
 
 ktlint {

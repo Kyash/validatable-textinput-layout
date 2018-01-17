@@ -11,6 +11,7 @@ ext {
             ktlintGradle    : "3.0.0",
             fabricGradleTool: "1.25.1",
             supportLibrary  : "26.1.0",
+            espresso        : "3.0.1",
     ]
 
     depends = [
@@ -46,6 +47,10 @@ ext {
             supporttest  : [
                     runner  : "com.android.support.test:runner:1.0.1",
                     espresso: "com.android.support.test.espresso:espresso-core:3.0.1"
+            ],
+            espresso     : [
+                    core   : "com.android.support.test.espresso:espresso-core:$versions.espresso",
+                    intents: "com.android.support.test.espresso:espresso-intents:$versions.espresso"
             ],
     ]
 }
