@@ -1,11 +1,20 @@
 <resources>
     <string name="app_name">ValidatableTextInputView</string>
-    <string name="first_name">First name</string>
-    <string name="last_name">Last name</string>
+
+    <string name="trigger_text_change">Text change trigger</string>
+    <string name="trigger_focus_change">Focus change trigger</string>
+
+    <string name="first_name">First name (Required)</string>
+    <string name="last_name">Last name (Required)</string>
+    <string name="email">Email (Not required)</string>
+    <string name="number">Number Only</string>
+    <string name="ascii">Ascii Only</string>
     <string name="submit">Submit</string>
 
-    <string name="validation_error_required">%1$s is required</string>
-    <string name="validation_error_kana">%1$s permits only Kana</string>
+    <string name="validation_error_required">Required</string>
+    <string name="validation_error_email">Invalid email</string>
+    <string name="validation_error_number_only">Input only number</string>
+    <string name="validation_error_ascii_only">Input only ascii characters</string>
 
     <string name="validation_error_occurred">Error occurred</string>
     <string name="validation_success">Success</string>

@@ -135,6 +135,10 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
     }
 
     override fun validate(): Boolean {
+        if (visibility != View.VISIBLE) {
+            return true
+        }
+
         validators.forEach {
             if (!it.validate(getText())) {
                 showErrorMessage(it.getErrorMessage())
@@ -146,6 +150,10 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
     }
 
     override fun validateAsCompletable(): Completable {
+        if (visibility != View.VISIBLE) {
+            return Completable.complete()
+        }
+
         val validations: List<Completable> = validators.map {
             it.validateAsCompletable(context, getText())
         }

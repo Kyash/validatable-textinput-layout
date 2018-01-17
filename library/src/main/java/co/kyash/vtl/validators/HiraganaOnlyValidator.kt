@@ -27,7 +27,7 @@ class HiraganaOnlyValidator(
     }
 
     override fun validate(text: String?): Boolean {
-        return !TextUtils.isEmpty(text) && PATTERN.matcher(text).matches()
+        return TextUtils.isEmpty(text) || PATTERN.matcher(text).matches()
     }
 
     override fun getErrorMessage(): String {

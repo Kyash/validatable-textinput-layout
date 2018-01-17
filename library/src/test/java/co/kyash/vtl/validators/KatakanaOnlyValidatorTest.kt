@@ -25,11 +25,12 @@ class KatakanaOnlyValidatorTest(
         @ParameterizedRobolectricTestRunner.Parameters
         fun data(): List<Array<out Any?>> {
             return listOf(
-                    arrayOf("", false, ERROR_MESSAGE),
                     arrayOf("a", false, ERROR_MESSAGE),
                     arrayOf("あ", false, ERROR_MESSAGE),
                     arrayOf("阿", false, ERROR_MESSAGE),
                     arrayOf("ア阿", false, ERROR_MESSAGE),
+                    arrayOf(null, true, null),
+                    arrayOf("", true, null),
                     arrayOf("ァアィイゥウェエォオカガキギクグケゲコゴ" +
                             "サザシジスズセゼソゾタダチヂッツヅテデトド" +
                             "ナニヌネノハバパヒビピフブプヘベペホボポマミムメモ" +

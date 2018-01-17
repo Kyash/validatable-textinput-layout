@@ -30,7 +30,8 @@ class EmailValidatorTest(
                     arrayOf("konifar@", false, ERROR_MESSAGE),
                     arrayOf("@gmail", false, ERROR_MESSAGE),
                     arrayOf("あ@gmail", false, ERROR_MESSAGE),
-                    arrayOf("", false, ERROR_MESSAGE),
+                    arrayOf(null, true, null),
+                    arrayOf("", true, null),
                     arrayOf("konifar@gmail", true, null),
                     arrayOf("konifar@gmail.com", true, null)
             )

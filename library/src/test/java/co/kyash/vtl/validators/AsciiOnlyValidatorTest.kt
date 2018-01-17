@@ -25,12 +25,13 @@ class AsciiOnlyValidatorTest(
         @ParameterizedRobolectricTestRunner.Parameters
         fun data(): List<Array<out Any?>> {
             return listOf(
-                    arrayOf("", false, ERROR_MESSAGE),
                     arrayOf("あ", false, ERROR_MESSAGE),
                     arrayOf("ア", false, ERROR_MESSAGE),
                     arrayOf("阿", false, ERROR_MESSAGE),
                     arrayOf("Ａ", false, ERROR_MESSAGE),
                     arrayOf("****です", false, ERROR_MESSAGE),
+                    arrayOf(null, true, null),
+                    arrayOf("", true, null),
                     arrayOf("a", true, null),
                     arrayOf("-", true, null),
                     arrayOf("@", true, null),
