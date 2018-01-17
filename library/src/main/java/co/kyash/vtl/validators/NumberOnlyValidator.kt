@@ -8,14 +8,14 @@ import io.reactivex.schedulers.Schedulers
 import java.util.regex.Pattern
 
 /**
- * Validation error when the text is not written by Japanese Katakana
+ * Validation error when the text is not written by Japanese Hiragana
  */
-class KatakanaValidator(
+class NumberOnlyValidator(
         private val errorMessage: String
 ) : VtlValidator {
 
     companion object {
-        private val PATTERN = Pattern.compile("^[ァ-ヶ\u2014\u2015\u30fc]+$")
+        private val PATTERN = Pattern.compile("^[0-9]+")
     }
 
     override fun validateAsCompletable(context: Context, text: String?): Completable {

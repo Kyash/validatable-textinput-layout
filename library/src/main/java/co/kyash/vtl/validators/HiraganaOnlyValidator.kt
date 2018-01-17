@@ -10,7 +10,7 @@ import java.util.regex.Pattern
 /**
  * Validation error when the text is not written by Japanese Hiragana
  */
-class HiraganaValidator(
+class HiraganaOnlyValidator(
         private val errorMessage: String
 ) : VtlValidator {
 

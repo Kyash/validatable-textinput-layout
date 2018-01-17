@@ -12,7 +12,7 @@ import org.robolectric.RuntimeEnvironment
 
 @Suppress("unused")
 @RunWith(ParameterizedRobolectricTestRunner::class)
-class KatakanaValidatorTest(
+class HiraganaOnlyValidatorTest(
         private val text: String?,
         private val result: Boolean,
         private val errorMessage: String?
@@ -27,13 +27,13 @@ class KatakanaValidatorTest(
             return listOf(
                     arrayOf("", false, ERROR_MESSAGE),
                     arrayOf("a", false, ERROR_MESSAGE),
-                    arrayOf("あ", false, ERROR_MESSAGE),
+                    arrayOf("ア", false, ERROR_MESSAGE),
                     arrayOf("阿", false, ERROR_MESSAGE),
-                    arrayOf("ア阿", false, ERROR_MESSAGE),
-                    arrayOf("ァアィイゥウェエォオカガキギクグケゲコゴ" +
-                            "サザシジスズセゼソゾタダチヂッツヅテデトド" +
-                            "ナニヌネノハバパヒビピフブプヘベペホボポマミムメモ" +
-                            "ャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ—―ー", true, null)
+                    arrayOf("あ阿", false, ERROR_MESSAGE),
+                    arrayOf("ぁあぃいぅうぇえぉおかがきぎくぐけげこご" +
+                            "さざしじすずせぜそぞただちぢっつづてでとど" +
+                            "なにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめも" +
+                            "ゃやゅゆょよらりるれろゎわゐゑをん—―ー", true, null)
             )
         }
     }
@@ -48,7 +48,7 @@ class KatakanaValidatorTest(
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        subject = KatakanaValidator(ERROR_MESSAGE)
+        subject = HiraganaOnlyValidator(ERROR_MESSAGE)
     }
 
     @Test
