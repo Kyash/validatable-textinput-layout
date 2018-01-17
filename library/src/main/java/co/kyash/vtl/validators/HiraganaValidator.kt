@@ -5,13 +5,18 @@ import android.text.TextUtils
 import co.kyash.vtl.VtlValidationFailureException
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
+import java.util.regex.Pattern
 
 /**
- * Validation error when the text is empty.
+ * Validation error when the text is not written by Japanese Hiragana
  */
-class RequiredValidator(
+class HiraganaValidator(
         private val errorMessage: String
 ) : VtlValidator {
+
+    companion object {
+        private val PATTERN = Pattern.compile("^[ぁ-ん\u2014\u2015\u30fc]+$")
+    }
 
     override fun validateAsCompletable(context: Context, text: String?): Completable {
         return Completable.fromRunnable {
@@ -22,7 +27,7 @@ class RequiredValidator(
     }
 
     override fun validate(text: String?): Boolean {
-        return !TextUtils.isEmpty(text)
+        return !TextUtils.isEmpty(text) && PATTERN.matcher(text).matches()
     }
 
     override fun getErrorMessage(): String {

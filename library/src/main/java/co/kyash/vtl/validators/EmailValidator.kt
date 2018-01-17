@@ -7,12 +7,15 @@ import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 import java.util.regex.Pattern
 
+/**
+ * Validation error when the text is invalid email address
+ */
 class EmailValidator(
         private val errorMessage: String
 ) : VtlValidator {
 
     companion object {
-        private val PATTERN_EMAIL = Pattern.compile("\\A[\\p{ASCII}&&\\S]+@[\\p{ASCII}&&\\S]+\\z")
+        private val PATTERN = Pattern.compile("\\A[\\p{ASCII}&&\\S]+@[\\p{ASCII}&&\\S]+\\z")
     }
 
     override fun validateAsCompletable(context: Context, text: String?): Completable {
@@ -24,7 +27,7 @@ class EmailValidator(
     }
 
     override fun validate(text: String?): Boolean {
-        return !TextUtils.isEmpty(text) && PATTERN_EMAIL.matcher(text).matches()
+        return !TextUtils.isEmpty(text) && PATTERN.matcher(text).matches()
     }
 
     override fun getErrorMessage(): String {
