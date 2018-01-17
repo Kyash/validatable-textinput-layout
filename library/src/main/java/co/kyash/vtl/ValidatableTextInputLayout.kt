@@ -1,3 +1,5 @@
+package co.kyash.vtl
+
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
@@ -10,9 +12,6 @@ import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
-import co.kyash.vtl.R
-import co.kyash.vtl.ValidatableView
-import co.kyash.vtl.VtlValidationFailureException
 import co.kyash.vtl.validators.VtlValidator
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Completable
