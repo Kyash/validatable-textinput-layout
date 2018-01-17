@@ -39,19 +39,20 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
     private var shouldValidateOnFocusChanged: Boolean = false
     private var shouldValidateOnTextChanged: Boolean = false
     private var shouldValidateOnTextChangedOnce: Boolean = false
+    private var validationInterval: Long = 300
 
     init {
-        val a = context.theme.obtainStyledAttributes(attrs,
-                R.styleable.ValidatableTextInputLayout, 0, 0)
+        val a = context.theme.obtainStyledAttributes(attrs, R.styleable.ValidatableTextInputLayout, 0, 0)
 
-        val trigger = a.getInt(R.styleable.ValidatableTextInputLayout_trigger,
-                FOCUS_CHANGED)
+        val trigger = a.getInt(R.styleable.ValidatableTextInputLayout_trigger, FOCUS_CHANGED)
         shouldValidateOnFocusChanged = trigger and FOCUS_CHANGED != 0
         shouldValidateOnTextChanged = trigger and TEXT_CHANGED != 0
 
         val enableFloatingLabel = a.getBoolean(R.styleable.ValidatableTextInputLayout_enable_floating_label, true)
         // http://stackoverflow.com/a/35819605
         if (!enableFloatingLabel) hint = " "
+
+        val validationInterval = a.getInteger(R.styleable.ValidatableTextInputLayout_interval, 300)
 
         a.recycle()
     }
@@ -124,7 +125,7 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
         }
 
         if (shouldValidateOnFocusChanged || shouldValidateOnTextChanged) {
-            editText.onFocusChangeListener = onFocusChangeListener
+            editText.onFocusChangeListener = onCustomFocusChangeListener
         }
     }
 
@@ -172,7 +173,7 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
 
         this.validators.mapTo(textInputAwareValidationFlowables) {
             textProcessor.onBackpressureDrop()
-                    .throttleLast(500L, TimeUnit.MILLISECONDS)
+                    .throttleLast(validationInterval, TimeUnit.MILLISECONDS)
                     // hack to emit an event to `onNext` when completable is completed.
                     .flatMap<Any> { x ->
                         it.validate(context, x)

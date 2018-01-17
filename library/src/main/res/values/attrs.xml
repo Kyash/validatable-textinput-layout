@@ -7,6 +7,7 @@
             <flag name="text_changed" value="2" />
         </attr>
         <attr name="enable_floating_label" format="boolean" />
+        <attr name="interval" format="integer" />
     </declare-styleable>
 
 </resources>
