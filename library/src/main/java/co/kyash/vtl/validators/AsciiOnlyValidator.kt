@@ -8,14 +8,14 @@ import io.reactivex.schedulers.Schedulers
 import java.util.regex.Pattern
 
 /**
- * Validation error when the text is not number
+ * Validation error when the text contains non-ascii characters
  */
-class NumberOnlyValidator(
+class AsciiOnlyValidator(
         private val errorMessage: String
 ) : VtlValidator {
 
     companion object {
-        private val PATTERN = Pattern.compile("^[0-9]+")
+        private val PATTERN = Pattern.compile("\\p{ASCII}+\$")
     }
 
     override fun validateAsCompletable(context: Context, text: String?): Completable {
