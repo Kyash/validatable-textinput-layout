@@ -63,7 +63,7 @@ private fun initValidator() {
 
 That's it. It works as below.
 
-<img src="art/required_validator.gif" width="300">
+![required_validator.gif](art/required_validator.gif)
 
 ## Triggers
 There are 2 types of the validation trigger attributes.
@@ -76,14 +76,14 @@ focus_changed | Validate when the focus is changed
 ## Validators
 This library provides some common validators
  
-Validator | Description
+Validator | Screenshot
 :--: | :--
-RequiredValidator | Required validation
-EmailValidator | General Email address validation
-NumberOnlyValidator | Only numbers are permitted
-AsciiOnlyValidator | Only Ascii characters are permitted
-HiraganaOnlyValidator | Only Japanese Hiragana characters are permitted
-KatakanaOnlyValidator | Only Japanese Katakana characters are permitted
+RequiredValidator | ![required_validator.gif](art/required_validator.gif)
+EmailValidator | ![email_validator.gif](art/email_validator.gif)
+NumberOnlyValidator | Coming soon
+AsciiOnlyValidator | ![ascii_validator.gif](art/ascii_validator.gif)
+HiraganaOnlyValidator | Coming soon
+KatakanaOnlyValidator | Coming soon
 
 
 
