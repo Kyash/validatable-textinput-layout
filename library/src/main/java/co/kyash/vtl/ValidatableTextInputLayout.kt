@@ -51,13 +51,13 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
         a.recycle()
     }
 
+    val textInputAwareValidationFlowables: ArrayList<Flowable<Any>> = ArrayList()
+
     private val textProcessor: FlowableProcessor<String> = PublishProcessor.create()
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private val validators: ArrayList<VtlValidator> = ArrayList()
-
-    private val textInputAwareValidationFlowables: ArrayList<Flowable<Any>> = ArrayList()
 
     private val mainHandler: Handler = HandlerProvider.createMainHandler()
 
@@ -111,7 +111,6 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
     private fun initListeners() {
         val editText = editText ?: return
 
-        // If the text has error, validation should run on realtime.
         if (shouldValidateOnTextChanged || shouldValidateOnTextChangedOnce) {
             shouldValidateOnTextChangedOnce = TextUtils.isEmpty(error)
             editText.removeTextChangedListener(textWatcher)
