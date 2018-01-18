@@ -46,10 +46,6 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
         shouldValidateOnFocusChanged = trigger and FOCUS_CHANGED != 0
         shouldValidateOnTextChanged = trigger and TEXT_CHANGED != 0
 
-        val enableFloatingLabel = a.getBoolean(R.styleable.ValidatableTextInputLayout_enable_floating_label, true)
-        // http://stackoverflow.com/a/35819605
-        if (!enableFloatingLabel) hint = " "
-
         validationInterval = a.getInteger(R.styleable.ValidatableTextInputLayout_interval, 300).toLong()
 
         a.recycle()
