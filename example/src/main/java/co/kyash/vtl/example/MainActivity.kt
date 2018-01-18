@@ -7,17 +7,23 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import co.kyash.vtl.ValidatableView
+import co.kyash.vtl.example.api.MaterialDesignColorsApi
 import co.kyash.vtl.example.databinding.ActivityMainBinding
 import co.kyash.vtl.validators.AsciiOnlyValidator
 import co.kyash.vtl.validators.EmailValidator
 import co.kyash.vtl.validators.NumberOnlyValidator
 import co.kyash.vtl.validators.RequiredValidator
 import com.crashlytics.android.Crashlytics
+import com.squareup.moshi.Moshi
 import io.fabric.sdk.android.Fabric
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +37,14 @@ class MainActivity : AppCompatActivity() {
     private val validatableViewsForTriggerFocusChanged: ArrayList<ValidatableView> = ArrayList()
 
     private val compositeDisposable = CompositeDisposable()
+
+    private val api = Retrofit.Builder()
+            .baseUrl("https://raw.githubusercontent.com")
+            .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+            .client(OkHttpClient.Builder().build())
+            .build()
+            .create(MaterialDesignColorsApi::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
