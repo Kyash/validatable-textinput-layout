@@ -3,11 +3,11 @@
 [![Build Status](https://circleci.com/gh/Kyash/validatable-textinput-layout.svg?style=shield)](https://circleci.com/gh/Kyash/validatable-textinput-layout/tree/master)
 [![JitPack](https://jitpack.io/v/Kyash/validatable-textinput-layout.svg)](https://jitpack.io/#Kyash/validatable-textinput-layout)
 
-ValidatableTextInputLayout is the view which extended TextInputLayout to validate the input text easily for .
+ValidatableTextInputLayout is the view which extended TextInputLayout to validate the input text easily.
 
 ## Download
 
-Project build.gradle
+### Project build.gradle
 
 ```groovy
 allprojects {
@@ -18,12 +18,12 @@ allprojects {
 }
 ```
 
-App build.gradle
+### App build.gradle
 
 ```groovy
 dependencies {
     ...
-    compile 'com.kyash.vtl:validatable-textinput-layout:LATEST_VERSION'
+    compile 'com.github.Kyash:validatable-textinput-layout:LATEST_VERSION'
 }
 ```
 
@@ -76,14 +76,14 @@ focus_changed | Validate when the focus is changed
 ## Validators
 This library provides some common validators
  
-Validator | Screenshot
+Validator | Description
 :--: | :--:
 RequiredValidator | ![required_validator.gif](art/required_validator.gif)
 EmailValidator | ![email_validator.gif](art/email_validator.gif)
-NumberOnlyValidator | ー
+NumberOnlyValidator | Number only
 AsciiOnlyValidator | ![ascii_validator.gif](art/ascii_validator.gif)
-HiraganaOnlyValidator | ー
-KatakanaOnlyValidator | ー
+HiraganaOnlyValidator | Jananese Hieragana character
+KatakanaOnlyValidator | Japanese Katakana character
 
 
 
@@ -112,7 +112,7 @@ class MaterialDesignColorsValidator(
     }
 
     override fun validate(text: String?): Boolean {
-        throw UnsupportedOperationException("sync method is not arrowed because this validation uses async API response.")
+        throw UnsupportedOperationException("Sync method is not arrowed because this validation uses async API response.")
     }
 
     override fun getErrorMessage(): String {
