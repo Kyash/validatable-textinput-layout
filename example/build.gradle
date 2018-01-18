@@ -65,7 +65,17 @@ dependencies {
     implementation depends.support.design
     implementation depends.support.cardview
 
+    //==================== Network ====================
+    implementation depends.okhttp3.jsonMock
+
+    implementation depends.retrofit.core
+    implementation depends.retrofit.converterMoshi
+    implementation depends.retrofit.adapterRxJava2
+
     //==================== Structure ====================
+    implementation depends.kotshi.api
+    kapt depends.kotshi.compiler
+
     implementation depends.rxjava2.core
     implementation depends.rxjava2.android
     implementation depends.rxjava2.kotlin

@@ -175,6 +175,50 @@
 
                 </android.support.v7.widget.CardView>
 
+
+                <TextView
+                    style="@style/Title"
+                    android:layout_marginTop="@dimen/space_32dp"
+                    android:text="@string/validator_colors" />
+
+                <TextView
+                    style="@style/Description"
+                    android:layout_marginTop="@dimen/space_8dp"
+                    android:text="@string/validator_colors" />
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/space_16dp"
+                        android:paddingEnd="@dimen/space_16dp"
+                        android:paddingLeft="@dimen/space_16dp"
+                        android:paddingRight="@dimen/space_16dp"
+                        android:paddingStart="@dimen/space_16dp"
+                        android:paddingTop="@dimen/space_8dp">
+
+                        <!-- Email -->
+                        <co.kyash.vtl.ValidatableTextInputLayout
+                            android:id="@+id/colors"
+                            style="@style/InputRow"
+                            app:trigger="focus_changed">
+
+                            <EditText
+                                style="@style/BaseEditText"
+                                android:hint="@string/first_name"
+                                android:inputType="text" />
+
+                        </co.kyash.vtl.ValidatableTextInputLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
             </LinearLayout>
 
         </ScrollView>

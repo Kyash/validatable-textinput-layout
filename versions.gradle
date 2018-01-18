@@ -12,6 +12,8 @@ ext {
             fabricGradleTool: "1.25.1",
             supportLibrary  : "26.1.0",
             espresso        : "3.0.1",
+            retrofit        : "2.3.0",
+            kotshi          : "0.3.0-beta1",
     ]
 
     depends = [
@@ -28,7 +30,21 @@ ext {
 
             crashlytics  : "com.crashlytics.sdk.android:crashlytics:2.8.0@aar",
 
+            //==================== Network ====================
+            okhttp3      : [
+                    jsonMock: "com.github.mirrajabi:okhttp-json-mock:1.1.1"
+            ],
+            retrofit     : [
+                    core          : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+                    converterMoshi: "com.squareup.retrofit2:converter-moshi:$versions.retrofit",
+                    adapterRxJava2: "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
+            ],
+
             //==================== Structure ====================
+            kotshi       : [
+                    api     : "se.ansman.kotshi:api:$versions.kotshi",
+                    compiler: "se.ansman.kotshi:compiler:$versions.kotshi",
+            ],
             rxjava2      : [
                     core   : "io.reactivex.rxjava2:rxjava:2.1.8",
                     android: "io.reactivex.rxjava2:rxandroid:2.0.1",

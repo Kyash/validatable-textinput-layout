@@ -3,6 +3,8 @@
 
     <string name="trigger_text_change">Text change trigger</string>
     <string name="trigger_focus_change">Focus change trigger</string>
+    <string name="validator_colors">Material design colors validator</string>
+    <string name="validator_colors_description">Ex) blue, red, yellow</string>
 
     <string name="first_name">First name (Required)</string>
     <string name="last_name">Last name (Required)</string>
@@ -15,6 +17,9 @@
     <string name="validation_error_email">Invalid email</string>
     <string name="validation_error_number_only">Input only number</string>
     <string name="validation_error_ascii_only">Input only ascii characters</string>
+
+    <string name="validation_error_server">Failed to validate by network error</string>
+    <string name="validation_error_colors">Color name is not match</string>
 
     <string name="validation_error_occurred">Error occurred</string>
     <string name="validation_success">Success</string>
