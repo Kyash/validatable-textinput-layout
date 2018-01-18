@@ -18,8 +18,8 @@ class MaterialDesignColorsValidator(
                 .onErrorResumeNext { Single.error(VtlValidationFailureException(context.getString(R.string.validation_error_server))) }
                 .flatMapCompletable { list ->
                     if (text?.trim() != null) {
-                        list.filter { it == text }
-                                .first { return@flatMapCompletable Completable.complete() }
+                        list.filter { it == text.trim().toLowerCase() }
+                                .forEach { return@flatMapCompletable Completable.complete() }
                     }
                     return@flatMapCompletable Completable.error(VtlValidationFailureException(getErrorMessage()))
                 }
