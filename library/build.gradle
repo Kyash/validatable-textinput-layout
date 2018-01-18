@@ -6,7 +6,7 @@ def versionMajor = 0
 def versionMinor = 1
 def versionPatch = 0
 
-group = 'com.kyash'
+group = 'co.kyash'
 version = "$versionMajor.$versionMinor.$versionPatch"
 
 android {
