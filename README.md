@@ -77,13 +77,13 @@ focus_changed | Validate when the focus is changed
 This library provides some common validators
  
 Validator | Screenshot
-:--: | :--
+:--: | :--:
 RequiredValidator | ![required_validator.gif](art/required_validator.gif)
 EmailValidator | ![email_validator.gif](art/email_validator.gif)
-NumberOnlyValidator | Coming soon
+NumberOnlyValidator | ー
 AsciiOnlyValidator | ![ascii_validator.gif](art/ascii_validator.gif)
-HiraganaOnlyValidator | Coming soon
-KatakanaOnlyValidator | Coming soon
+HiraganaOnlyValidator | ー
+KatakanaOnlyValidator | ー
 
 
 
@@ -91,9 +91,37 @@ KatakanaOnlyValidator | Coming soon
 You can create the custom validator by using `VtlValidator`.
 Since `VtlValidator` uses RxJava2, it can handle async logic like API as well!
 
+[MaterialDesignColorsValidator](https://github.com/Kyash/validatable-textinput-layout/blob/master/example/src/main/java/co/kyash/vtl/example/validators/MaterialDesignColorsValidator.kt) is example to get data via API and validate the input value.
+
+```kotlin
+class MaterialDesignColorsValidator(
+        private val api: MaterialDesignColorsApi,
+        private val context: Context
+) : VtlValidator {
+
+    override fun validateAsCompletable(context: Context, text: String?): Completable {
+        return api.all()
+                .onErrorResumeNext { Single.error(VtlValidationFailureException(context.getString(R.string.validation_error_server))) }
+                .flatMapCompletable { list ->
+                    if (text?.trim() != null) {
+                        list.filter { it == text.trim().toLowerCase() }
+                                .forEach { return@flatMapCompletable Completable.complete() }
+                    }
+                    return@flatMapCompletable Completable.error(VtlValidationFailureException(getErrorMessage()))
+                }
+    }
+
+    override fun validate(text: String?): Boolean {
+        throw UnsupportedOperationException("sync method is not arrowed because this validation uses async API response.")
+    }
+
+    override fun getErrorMessage(): String {
+        return context.getString(R.string.validation_error_colors)
+    }
+}
 ```
 
-```
+![custom_validator.gif](art/custom_validator.gif)
 
 ## Contributing
 We are always welcome your contribution!
