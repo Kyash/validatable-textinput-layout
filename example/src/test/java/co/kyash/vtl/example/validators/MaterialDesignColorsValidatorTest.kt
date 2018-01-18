@@ -1,10 +1,14 @@
 package co.kyash.vtl.example.validators
 
 import android.content.Context
-import co.kyash.vtl.example.testing.MockServer
+import co.kyash.vtl.example.api.MaterialDesignColorsApi
 import co.kyash.vtl.example.testing.RxImmediateSchedulerRule
 import co.kyash.vtl.validators.VtlValidator
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
+import io.reactivex.Single
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,18 +23,18 @@ class MaterialDesignColorsValidatorTest(
 ) {
 
     companion object {
-        private val ERROR_MESSAGE = "This is not MaterialDesign color"
+        private val ERROR_MESSAGE = "This is not Material design color"
 
         @JvmStatic
         @ParameterizedRobolectricTestRunner.Parameters
         fun data(): List<Array<out Any?>> {
             return listOf(
-                    arrayOf("Gold", ERROR_MESSAGE)
-//                    arrayOf("Blue Red", ERROR_MESSAGE),
-//                    arrayOf("Blue ", null),
-//                    arrayOf(" Blue", null),
-//                    arrayOf("Blue", null),
-//                    arrayOf("Red", null)
+                    arrayOf("Gold", ERROR_MESSAGE),
+                    arrayOf("Blue Red", ERROR_MESSAGE),
+                    arrayOf("Blue ", null),
+                    arrayOf(" Blue", null),
+                    arrayOf("Blue", null),
+                    arrayOf("Red", null)
             )
         }
     }
@@ -42,7 +46,9 @@ class MaterialDesignColorsValidatorTest(
 
     private val context: Context = RuntimeEnvironment.application
 
-    private val api = MockServer.api(context)
+    private val api: MaterialDesignColorsApi = mock {
+        on { all() } doReturn Single.just(listOf("red, pink, blue"))
+    }
 
     @Before
     @Throws(Exception::class)
@@ -55,6 +61,7 @@ class MaterialDesignColorsValidatorTest(
         subject.validate(text)
     }
 
+    @Ignore
     @Test
     fun validateAsCompletable() {
         if (errorMessage == null) {

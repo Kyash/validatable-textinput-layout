@@ -66,8 +66,6 @@ dependencies {
     implementation depends.support.cardview
 
     //==================== Network ====================
-    implementation depends.okhttp3.jsonMock
-
     implementation depends.retrofit.core
     implementation depends.retrofit.converterMoshi
     implementation depends.retrofit.adapterRxJava2
@@ -85,6 +83,10 @@ dependencies {
     implementation(depends.crashlytics) {
         transitive = true
     }
+
+    //==================== Debug ====================
+    debugImplementation depends.stetho.core
+    debugImplementation depends.stetho.okhttp3
 
     //==================== Test ====================
     testImplementation depends.junit

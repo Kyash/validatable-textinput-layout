@@ -9,11 +9,13 @@ import android.widget.Toast
 import co.kyash.vtl.ValidatableView
 import co.kyash.vtl.example.api.MaterialDesignColorsApi
 import co.kyash.vtl.example.databinding.ActivityMainBinding
+import co.kyash.vtl.example.validators.MaterialDesignColorsValidator
 import co.kyash.vtl.validators.AsciiOnlyValidator
 import co.kyash.vtl.validators.EmailValidator
 import co.kyash.vtl.validators.NumberOnlyValidator
 import co.kyash.vtl.validators.RequiredValidator
 import com.crashlytics.android.Crashlytics
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import io.fabric.sdk.android.Fabric
 import io.reactivex.Completable
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             .baseUrl("https://raw.githubusercontent.com")
             .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
-            .client(OkHttpClient.Builder().build())
+            .client(OkHttpClient.Builder().addNetworkInterceptor(StethoInterceptor()).build())
             .build()
             .create(MaterialDesignColorsApi::class.java)
 
@@ -68,6 +70,8 @@ class MainActivity : AppCompatActivity() {
         validatableViewsForTriggerFocusChanged.addAll(arrayOf(
                 binding.email2.register(EmailValidator(getString(R.string.validation_error_email)))
         ))
+
+        binding.colors.register(MaterialDesignColorsValidator(api, this))
     }
 
     private fun onSubmitClick(@Suppress("UNUSED_PARAMETER") view: View) {

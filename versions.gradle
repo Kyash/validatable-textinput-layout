@@ -13,6 +13,7 @@ ext {
             supportLibrary  : "26.1.0",
             espresso        : "3.0.1",
             retrofit        : "2.3.0",
+            stetho          : "1.5.0",
             kotshi          : "0.3.0-beta1",
     ]
 
@@ -31,9 +32,6 @@ ext {
             crashlytics  : "com.crashlytics.sdk.android:crashlytics:2.8.0@aar",
 
             //==================== Network ====================
-            okhttp3      : [
-                    jsonMock: "com.github.mirrajabi:okhttp-json-mock:1.1.1"
-            ],
             retrofit     : [
                     core          : "com.squareup.retrofit2:retrofit:$versions.retrofit",
                     converterMoshi: "com.squareup.retrofit2:converter-moshi:$versions.retrofit",
@@ -52,6 +50,12 @@ ext {
             ],
             binding      : [
                     compiler: "com.android.databinding:compiler:3.0.1",
+            ],
+
+            //==================== Debug ====================
+            stetho       : [
+                    core   : "com.facebook.stetho:stetho:$versions.stetho",
+                    okhttp3: "com.facebook.stetho:stetho-okhttp3:$versions.stetho",
             ],
 
             //==================== Test ====================

@@ -13,6 +13,8 @@
     <string name="ascii">Ascii Only</string>
     <string name="submit">Submit</string>
 
+    <string name="material_design_colors">Material design colors</string>
+
     <string name="validation_error_required">Required</string>
     <string name="validation_error_email">Invalid email</string>
     <string name="validation_error_number_only">Input only number</string>
