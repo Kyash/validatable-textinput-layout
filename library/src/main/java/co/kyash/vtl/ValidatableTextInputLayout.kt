@@ -29,6 +29,8 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : TextInputLayout(context, attrs, defStyleAttr), ValidatableView {
 
+    override val validationFlowables: ArrayList<Flowable<Any>> = ArrayList()
+
     companion object {
         private val FOCUS_CHANGED = 1
         private val TEXT_CHANGED = 1 shl 1
@@ -50,8 +52,6 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
 
         a.recycle()
     }
-
-    val textInputAwareValidationFlowables: ArrayList<Flowable<Any>> = ArrayList()
 
     private val textProcessor: FlowableProcessor<String> = PublishProcessor.create()
 
@@ -81,7 +81,7 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
                 shouldValidateOnTextChangedOnce = false
                 compositeDisposable.clear()
                 compositeDisposable.add(
-                        Flowable.zip(textInputAwareValidationFlowables) { Any() }
+                        Flowable.zip(validationFlowables) { Any() }
                                 .doOnError({ this.showErrorMessage(it) })
                                 .retry() // non-terminated stream
                                 .subscribeOn(Schedulers.computation())
@@ -183,7 +183,7 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
 
         this.validators.addAll(validators)
 
-        this.validators.mapTo(textInputAwareValidationFlowables) {
+        this.validators.mapTo(validationFlowables) {
             textProcessor.onBackpressureDrop()
                     .throttleLast(validationInterval, TimeUnit.MILLISECONDS)
                     // hack to emit an event to `onNext` when completable is completed.

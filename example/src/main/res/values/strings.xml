@@ -25,4 +25,7 @@
 
     <string name="validation_error_occurred">Error occurred</string>
     <string name="validation_success">Success</string>
+
+    <string name="change_button_enabled">Change button enable</string>
+    <string name="change_button_enabled_description">Validation with changing button enable</string>
 </resources>

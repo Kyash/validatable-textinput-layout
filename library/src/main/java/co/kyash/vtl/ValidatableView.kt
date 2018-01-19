@@ -2,8 +2,11 @@ package co.kyash.vtl
 
 import co.kyash.vtl.validators.VtlValidator
 import io.reactivex.Completable
+import io.reactivex.Flowable
 
 interface ValidatableView {
+
+    val validationFlowables: ArrayList<Flowable<Any>>
 
     fun validate(): Boolean
 
