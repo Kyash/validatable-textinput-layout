@@ -179,8 +179,6 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
     }
 
     override fun register(validators: List<VtlValidator>): ValidatableView {
-        clearValidators()
-
         this.validators.addAll(validators)
 
         this.validators.mapTo(validationFlowables) {
