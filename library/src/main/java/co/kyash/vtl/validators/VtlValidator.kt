@@ -21,6 +21,6 @@ interface VtlValidator {
     /**
      * @return errorMessage
      */
-    fun getErrorMessage(): String
+    fun getErrorMessage(): String?
 
 }

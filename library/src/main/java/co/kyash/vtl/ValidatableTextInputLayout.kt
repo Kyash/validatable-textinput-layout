@@ -233,6 +233,8 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
                 isErrorEnabled = true
                 triggerAfterValidation = false
             }
+        } else {
+            clearErrorMessage()
         }
     }
 
