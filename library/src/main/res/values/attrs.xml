@@ -6,8 +6,8 @@
             <flag name="focus_changed" value="1" />
             <flag name="text_changed" value="2" />
         </attr>
-        <attr name="enable_floating_label" format="boolean" />
         <attr name="interval" format="integer" />
+        <attr name="triggerAfterValidation" format="boolean" />
     </declare-styleable>
 
 </resources>

@@ -80,7 +80,8 @@
                         <co.kyash.vtl.ValidatableTextInputLayout
                             android:id="@+id/email"
                             style="@style/InputRow"
-                            app:trigger="text_changed">
+                            app:trigger="text_changed"
+                            app:triggerAfterValidation="true">
 
                             <EditText
                                 style="@style/BaseEditText"
@@ -200,7 +201,6 @@
                         android:paddingStart="@dimen/space_16dp"
                         android:paddingTop="@dimen/space_8dp">
 
-                        <!-- Email -->
                         <co.kyash.vtl.ValidatableTextInputLayout
                             android:id="@+id/colors"
                             style="@style/InputRow"

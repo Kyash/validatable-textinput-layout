@@ -35,7 +35,8 @@ class AsciiOnlyValidatorTest(
                     arrayOf("a", true, null),
                     arrayOf("-", true, null),
                     arrayOf("@", true, null),
-                    arrayOf("*", true, null)
+                    arrayOf("*", true, null),
+                    arrayOf("1", true, null)
             )
         }
     }

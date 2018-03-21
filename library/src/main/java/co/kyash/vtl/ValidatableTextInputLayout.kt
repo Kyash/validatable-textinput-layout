@@ -18,7 +18,6 @@ import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
 import io.reactivex.internal.functions.Functions
-import io.reactivex.processors.FlowableProcessor
 import io.reactivex.processors.PublishProcessor
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -29,37 +28,42 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : TextInputLayout(context, attrs, defStyleAttr), ValidatableView {
 
-    override val validationFlowables: ArrayList<Flowable<Any>> = ArrayList()
+    override val validationFlowables = ArrayList<Flowable<Any>>()
 
     companion object {
+        private val NONE = -1
         private val FOCUS_CHANGED = 1
         private val TEXT_CHANGED = 1 shl 1
     }
 
-    private var shouldValidateOnFocusChanged: Boolean = false
-    private var shouldValidateOnTextChanged: Boolean = false
-    private var shouldValidateOnTextChangedOnce: Boolean = false
-    private var validationInterval: Long = 300L
+    private var shouldValidateOnFocusChanged = false
+    private var shouldValidateOnTextChanged = false
+    private var shouldValidateOnTextChangedOnce = false
+    private var triggerAfterValidation = false
+    private var validationInterval = 300L
 
     init {
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.ValidatableTextInputLayout, 0, 0)
 
-        val trigger = a.getInt(R.styleable.ValidatableTextInputLayout_trigger, FOCUS_CHANGED)
-        shouldValidateOnFocusChanged = trigger and FOCUS_CHANGED != 0
-        shouldValidateOnTextChanged = trigger and TEXT_CHANGED != 0
+        val trigger = a.getInt(R.styleable.ValidatableTextInputLayout_trigger, NONE)
+        if (trigger > 0) {
+            shouldValidateOnFocusChanged = trigger and FOCUS_CHANGED != 0
+            shouldValidateOnTextChanged = trigger and TEXT_CHANGED != 0
+        }
 
+        triggerAfterValidation = a.getBoolean(R.styleable.ValidatableTextInputLayout_triggerAfterValidation, false)
         validationInterval = a.getInteger(R.styleable.ValidatableTextInputLayout_interval, 300).toLong()
 
         a.recycle()
     }
 
-    private val textProcessor: FlowableProcessor<String> = PublishProcessor.create()
+    private val textProcessor = PublishProcessor.create<String>()
 
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
-    private val validators: ArrayList<VtlValidator> = ArrayList()
+    private val validators = ArrayList<VtlValidator>()
 
-    private val mainHandler: Handler = HandlerProvider.createMainHandler()
+    private val mainHandler = HandlerProvider.createMainHandler()
 
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -71,30 +75,36 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
         }
 
         override fun afterTextChanged(s: Editable) {
-            textProcessor.onNext(s.toString())
+            if (!triggerAfterValidation) {
+                textProcessor.onNext(s.toString())
+            }
         }
     }
 
     private val onCustomFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-        if (hasFocus) {
-            if (shouldValidateOnTextChanged || shouldValidateOnTextChangedOnce) {
-                shouldValidateOnTextChangedOnce = false
-                compositeDisposable.clear()
-                compositeDisposable.add(
-                        Flowable.zip(validationFlowables) { Any() }
-                                .doOnError({ this.showErrorMessage(it) })
-                                .retry() // non-terminated stream
-                                .subscribeOn(Schedulers.computation())
-                                .subscribe({ clearErrorMessage() }, {})
-                )
+        if (!triggerAfterValidation) {
+
+            if (hasFocus) {
+                if (shouldValidateOnTextChanged || shouldValidateOnTextChangedOnce) {
+                    shouldValidateOnTextChangedOnce = false
+                    compositeDisposable.clear()
+                    compositeDisposable.add(
+                            Flowable.zip(validationFlowables) { Any() }
+                                    .doOnError({ this.showErrorMessage(it) })
+                                    .retry() // non-terminated stream
+                                    .subscribeOn(Schedulers.computation())
+                                    .subscribe({ clearErrorMessage() }, {})
+                    )
+                }
+            } else {
+                if (shouldValidateOnFocusChanged) {
+                    compositeDisposable.clear()
+                    compositeDisposable.add(
+                            validateAsCompletable().subscribe(Functions.EMPTY_ACTION, Consumer<Throwable> {})
+                    )
+                }
             }
-        } else {
-            if (shouldValidateOnFocusChanged) {
-                compositeDisposable.clear()
-                compositeDisposable.add(
-                        validateAsCompletable().subscribe(Functions.EMPTY_ACTION, Consumer<Throwable> {})
-                )
-            }
+
         }
     }
 
@@ -221,6 +231,7 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
             mainHandler.post {
                 error = errorMessage
                 isErrorEnabled = true
+                triggerAfterValidation = false
             }
         }
     }
