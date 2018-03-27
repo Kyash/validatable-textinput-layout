@@ -27,6 +27,8 @@ class RequiredValidatorTest(
             return listOf(
                     arrayOf(null, false, ERROR_MESSAGE),
                     arrayOf("", false, ERROR_MESSAGE),
+                    arrayOf(" ", false, ERROR_MESSAGE),
+                    arrayOf("　", false, ERROR_MESSAGE),
                     arrayOf("konifar", true, null)
             )
         }

@@ -36,7 +36,7 @@ class RequiredValidator(
      * @return result
      */
     override fun validate(text: String?): Boolean {
-        return !TextUtils.isEmpty(text)
+        return !TextUtils.isEmpty(text?.trim())
     }
 
     /**
