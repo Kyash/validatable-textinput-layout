@@ -12,7 +12,7 @@ import org.robolectric.RuntimeEnvironment
 
 @Suppress("unused")
 @RunWith(ParameterizedRobolectricTestRunner::class)
-class RequiredValidatorTest(
+class MinLengthValidatorTest(
         private val text: String?,
         private val trim: Boolean,
         private val result: Boolean,
@@ -20,7 +20,8 @@ class RequiredValidatorTest(
 ) {
 
     companion object {
-        private val ERROR_MESSAGE = "This field is required"
+        private val MIN_LENGTH = 5
+        private val ERROR_MESSAGE = "This field has error"
 
         @JvmStatic
         @ParameterizedRobolectricTestRunner.Parameters
@@ -29,13 +30,13 @@ class RequiredValidatorTest(
                     // Failure
                     arrayOf(null, true, false, ERROR_MESSAGE),
                     arrayOf("", true, false, ERROR_MESSAGE),
-                    arrayOf(" ", true, false, ERROR_MESSAGE),
-                    arrayOf("　", true, false, ERROR_MESSAGE),
+                    arrayOf("     ", true, false, ERROR_MESSAGE),
+                    arrayOf("abcd", true, false, ERROR_MESSAGE),
 
                     // Success
-                    arrayOf(" ", false, true, null),
-                    arrayOf("　", false, true, null),
-                    arrayOf("konifar", true, true, null)
+                    arrayOf("     ", false, true, null),
+                    arrayOf("abcde", true, true, null),
+                    arrayOf("abcdef", true, true, null)
             )
         }
     }
@@ -50,7 +51,7 @@ class RequiredValidatorTest(
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        subject = RequiredValidator(ERROR_MESSAGE, trim)
+        subject = MinLengthValidator(ERROR_MESSAGE, MIN_LENGTH, trim)
     }
 
     @Test
