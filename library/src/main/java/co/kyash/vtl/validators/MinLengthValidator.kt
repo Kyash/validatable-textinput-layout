@@ -1,16 +1,16 @@
 package co.kyash.vtl.validators
 
 import android.content.Context
-import android.text.TextUtils
 import co.kyash.vtl.VtlValidationFailureException
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 
 /**
- * Validation error when the text is empty.
+ * Validation error when the text length is shorter
  */
-class RequiredValidator(
+class MinLengthValidator(
         private val errorMessage: String,
+        private val minLength: Int,
         private val trim: Boolean = true
 ) : VtlValidator {
 
@@ -37,7 +37,9 @@ class RequiredValidator(
      * @return result
      */
     override fun validate(text: String?): Boolean {
-        return !TextUtils.isEmpty(text?.let { if (trim) it.trim() else it })
+        return text?.let {
+            if (trim) it.trim() else it
+        }?.length ?: 0 >= minLength
     }
 
     /**
