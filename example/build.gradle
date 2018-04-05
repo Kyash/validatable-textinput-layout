@@ -77,7 +77,6 @@ dependencies {
     implementation depends.rxjava2.core
     implementation depends.rxjava2.android
     implementation depends.rxjava2.kotlin
-    kapt depends.binding.compiler
 
     //==================== Debug ====================
     implementation(depends.crashlytics) {
