@@ -1,16 +1,16 @@
 ext {
     versions = [
             compileSdk      : 26,
-            buildTools      : "26.0.1",
+            buildTools      : "27.0.3",
             minSdk          : 19,
             targetSdk       : 26,
-            gradleBuildTool : "3.0.1",
+            gradleBuildTool : "3.1.0",
             mavenGradle     : "2.0",
-            kotlin          : "1.2.10",
+            kotlin          : "1.2.30",
             ktlint          : "0.14.0",
             ktlintGradle    : "3.0.0",
             fabricGradleTool: "1.25.1",
-            supportLibrary  : "26.1.0",
+            supportLibrary  : "27.1.1",
             espresso        : "3.0.1",
             retrofit        : "2.3.0",
             stetho          : "1.5.0",
@@ -49,7 +49,7 @@ ext {
                     kotlin : "io.reactivex.rxjava2:rxkotlin:2.2.0",
             ],
             binding      : [
-                    compiler: "com.android.databinding:compiler:3.0.1",
+                    compiler: "com.android.databinding:compiler:3.1.0",
             ],
 
             //==================== Debug ====================
