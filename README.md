@@ -82,8 +82,9 @@ RequiredValidator | ![required_validator.gif](art/required_validator.gif)
 EmailValidator | ![email_validator.gif](art/email_validator.gif)
 NumberOnlyValidator | Number only
 AsciiOnlyValidator | ![ascii_validator.gif](art/ascii_validator.gif)
-HiraganaOnlyValidator | Jananese Hieragana character
-KatakanaOnlyValidator | Japanese Katakana character
+AlphabetOnlyValidator | Alphabet character only
+HiraganaOnlyValidator | Jananese Hieragana character only
+KatakanaOnlyValidator | Japanese Katakana character only
 
 
 

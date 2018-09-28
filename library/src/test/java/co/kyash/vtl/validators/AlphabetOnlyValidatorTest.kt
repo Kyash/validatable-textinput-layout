@@ -12,7 +12,7 @@ import org.robolectric.RuntimeEnvironment
 
 @Suppress("unused")
 @RunWith(ParameterizedRobolectricTestRunner::class)
-class AsciiOnlyValidatorTest(
+class AlphabetOnlyValidatorTest(
         private val text: String?,
         private val result: Boolean,
         private val errorMessage: String?
@@ -30,14 +30,17 @@ class AsciiOnlyValidatorTest(
                     arrayOf("阿", false, ERROR_MESSAGE),
                     arrayOf("Ａ", false, ERROR_MESSAGE),
                     arrayOf("****です", false, ERROR_MESSAGE),
+                    arrayOf("-", false, ERROR_MESSAGE),
+                    arrayOf("@", false, ERROR_MESSAGE),
+                    arrayOf("*", false, ERROR_MESSAGE),
+                    arrayOf("1", false, ERROR_MESSAGE),
                     arrayOf(null, true, null),
                     arrayOf("", true, null),
                     arrayOf(" ", true, null),
+                    arrayOf("　", true, null),
                     arrayOf("a", true, null),
-                    arrayOf("-", true, null),
-                    arrayOf("@", true, null),
-                    arrayOf("*", true, null),
-                    arrayOf("1", true, null)
+                    arrayOf("A", true, null),
+                    arrayOf("YUSUKE KONISHI", true, null)
             )
         }
     }
@@ -52,7 +55,7 @@ class AsciiOnlyValidatorTest(
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        subject = AsciiOnlyValidator(ERROR_MESSAGE)
+        subject = AlphabetOnlyValidator(ERROR_MESSAGE)
     }
 
     @Test
