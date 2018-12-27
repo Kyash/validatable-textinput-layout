@@ -1,11 +1,11 @@
 package co.kyash.vtl.example
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import co.kyash.vtl.ValidatableView
 import co.kyash.vtl.example.api.MaterialDesignColorsApi
 import co.kyash.vtl.example.databinding.ActivityMainBinding
@@ -42,12 +42,12 @@ class MainActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
 
     private val api = Retrofit.Builder()
-            .baseUrl("https://raw.githubusercontent.com")
-            .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
-            .client(OkHttpClient.Builder().addNetworkInterceptor(StethoInterceptor()).build())
-            .build()
-            .create(MaterialDesignColorsApi::class.java)
+        .baseUrl("https://raw.githubusercontent.com")
+        .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+        .client(OkHttpClient.Builder().addNetworkInterceptor(StethoInterceptor()).build())
+        .build()
+        .create(MaterialDesignColorsApi::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,16 +65,16 @@ class MainActivity : AppCompatActivity() {
     private fun initValidators() {
         // Example 1
         validatableViewsForTriggerTextChanged.addAll(arrayOf(
-                binding.firstName.register(RequiredValidator(getString(R.string.validation_error_required))),
-                binding.lastName.register(RequiredValidator(getString(R.string.validation_error_required))),
-                binding.email.register(EmailValidator(getString(R.string.validation_error_email))),
-                binding.numberOnly.register(NumberOnlyValidator(getString(R.string.validation_error_number_only))),
-                binding.asciiOnly.register(AsciiOnlyValidator(getString(R.string.validation_error_ascii_only)))
+            binding.firstName.register(RequiredValidator(getString(R.string.validation_error_required))),
+            binding.lastName.register(RequiredValidator(getString(R.string.validation_error_required))),
+            binding.email.register(EmailValidator(getString(R.string.validation_error_email))),
+            binding.numberOnly.register(NumberOnlyValidator(getString(R.string.validation_error_number_only))),
+            binding.asciiOnly.register(AsciiOnlyValidator(getString(R.string.validation_error_ascii_only)))
         ))
 
         // Example 2
         validatableViewsForTriggerFocusChanged.addAll(arrayOf(
-                binding.email2.register(EmailValidator(getString(R.string.validation_error_email)))
+            binding.email2.register(EmailValidator(getString(R.string.validation_error_email)))
         ))
 
         // Example 3
@@ -82,16 +82,16 @@ class MainActivity : AppCompatActivity() {
 
         // Example 4
         validatableViewsForButtonEnable.addAll(arrayOf(
-                binding.firstName2.register(RequiredValidator(getString(R.string.validation_error_required))),
-                binding.lastName2.register(RequiredValidator(getString(R.string.validation_error_required)))
+            binding.firstName2.register(RequiredValidator(getString(R.string.validation_error_required))),
+            binding.lastName2.register(RequiredValidator(getString(R.string.validation_error_required)))
         ))
         val validations: List<Flowable<Any>> = validatableViewsForButtonEnable.flatMap { it.validationFlowables }
         Flowable.zip(validations) { Any() }
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError({ binding.submit3.isEnabled = false })
-                .retry() // non-terminated stream
-                .subscribe({ binding.submit3.isEnabled = true }, { })
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError({ binding.submit3.isEnabled = false })
+            .retry() // non-terminated stream
+            .subscribe({ binding.submit3.isEnabled = true }, { })
     }
 
 
@@ -113,16 +113,16 @@ class MainActivity : AppCompatActivity() {
         compositeDisposable.clear()
 
         compositeDisposable.add(
-                Completable.mergeDelayError(validations)
-                        .subscribeOn(Schedulers.computation())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            Log.d("MainActivity", "Validation cleared.")
-                            Toast.makeText(this, R.string.validation_success, Toast.LENGTH_SHORT).show()
-                        }, { throwable ->
-                            Log.e("MainActivity", "Validation error occurred.", throwable)
-                            Toast.makeText(this, R.string.validation_error_occurred, Toast.LENGTH_SHORT).show()
-                        })
+            Completable.mergeDelayError(validations)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Log.d("MainActivity", "Validation cleared.")
+                    Toast.makeText(this, R.string.validation_success, Toast.LENGTH_SHORT).show()
+                }, { throwable ->
+                    Log.e("MainActivity", "Validation error occurred.", throwable)
+                    Toast.makeText(this, R.string.validation_error_occurred, Toast.LENGTH_SHORT).show()
+                })
         )
     }
 

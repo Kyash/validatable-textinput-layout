@@ -1,6 +1,6 @@
-buildscript {
-    apply from: "${rootDir.absolutePath}/versions.gradle"
+import dependencies.Depends
 
+buildscript {
     repositories {
         google()
         jcenter()
@@ -10,11 +10,11 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$versions.gradleBuildTool"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-        classpath "gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:$versions.ktlintGradle"
-        classpath "io.fabric.tools:gradle:$versions.fabricGradleTool"
-        classpath "com.github.dcendents:android-maven-gradle-plugin:$versions.mavenGradle"
+        classpath Depends.GradlePlugin.android
+        classpath Depends.GradlePlugin.kotlin
+        classpath Depends.GradlePlugin.ktlint
+        classpath Depends.GradlePlugin.fabric
+        classpath Depends.GradlePlugin.androidMaven
     }
 }
 

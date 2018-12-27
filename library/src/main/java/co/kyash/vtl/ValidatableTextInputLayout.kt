@@ -3,7 +3,6 @@ package co.kyash.vtl
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.support.design.widget.TextInputLayout
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -12,6 +11,7 @@ import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import co.kyash.vtl.validators.VtlValidator
+import com.google.android.material.textfield.TextInputLayout
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -23,9 +23,9 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class ValidatableTextInputLayout @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : TextInputLayout(context, attrs, defStyleAttr), ValidatableView {
 
     override val validationFlowables = ArrayList<Flowable<Any>>()
@@ -89,18 +89,18 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
                     shouldValidateOnTextChangedOnce = false
                     compositeDisposable.clear()
                     compositeDisposable.add(
-                            Flowable.zip(validationFlowables) { Any() }
-                                    .doOnError({ this.showErrorMessage(it) })
-                                    .retry() // non-terminated stream
-                                    .subscribeOn(Schedulers.computation())
-                                    .subscribe({ clearErrorMessage() }, {})
+                        Flowable.zip(validationFlowables) { Any() }
+                            .doOnError({ this.showErrorMessage(it) })
+                            .retry() // non-terminated stream
+                            .subscribeOn(Schedulers.computation())
+                            .subscribe({ clearErrorMessage() }, {})
                     )
                 }
             } else {
                 if (shouldValidateOnFocusChanged) {
                     compositeDisposable.clear()
                     compositeDisposable.add(
-                            validateAsCompletable().subscribe(Functions.EMPTY_ACTION, Consumer<Throwable> {})
+                        validateAsCompletable().subscribe(Functions.EMPTY_ACTION, Consumer<Throwable> {})
                     )
                 }
             }
@@ -164,9 +164,9 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
         }
 
         return Completable.mergeDelayError(validations)
-                .doOnComplete { clearErrorMessage() }
-                .doOnError { showErrorMessage(it) }
-                .subscribeOn(Schedulers.computation())
+            .doOnComplete { clearErrorMessage() }
+            .doOnError { showErrorMessage(it) }
+            .subscribeOn(Schedulers.computation())
     }
 
     fun getText(): String {
@@ -193,14 +193,14 @@ class ValidatableTextInputLayout @JvmOverloads constructor(
 
         this.validators.mapTo(validationFlowables) {
             textProcessor.onBackpressureDrop()
-                    .throttleLast(validationInterval, TimeUnit.MILLISECONDS)
-                    // hack to emit an event to `onNext` when completable is completed.
-                    .flatMap<Any> { x ->
-                        it.validateAsCompletable(context, x)
-                                .toSingleDefault(Any())
-                                .toObservable()
-                                .toFlowable(BackpressureStrategy.BUFFER)
-                    }
+                .throttleLast(validationInterval, TimeUnit.MILLISECONDS)
+                // hack to emit an event to `onNext` when completable is completed.
+                .flatMap<Any> { x ->
+                    it.validateAsCompletable(context, x)
+                        .toSingleDefault(Any())
+                        .toObservable()
+                        .toFlowable(BackpressureStrategy.BUFFER)
+                }
         }
         return this
     }

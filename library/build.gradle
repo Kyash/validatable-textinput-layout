@@ -1,20 +1,23 @@
+import dependencies.Depends
+import dependencies.Versions
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 
-def versionMajor = 0
-def versionMinor = 3
+def versionMajor = 1
+def versionMinor = 0
 def versionPatch = 0
 
 group = 'co.kyash'
 version = "$versionMajor.$versionMinor.$versionPatch"
 
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion Versions.androidCompileSdkVersion
 
     defaultConfig {
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
+        minSdkVersion Versions.androidMinSdkVersion
+        targetSdkVersion Versions.androidTargetSdkVersion
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "$versionMajor.$versionMinor.$versionPatch"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -33,19 +36,19 @@ android {
 
 dependencies {
     //==================== Kotlin ====================
-    implementation depends.kotlin.stdlib
+    implementation Depends.Kotlin.stdlib
 
     //==================== Support Library ====================
-    implementation depends.support.appcompat
-    implementation depends.support.design
+    implementation Depends.AndroidX.appCompat
+    implementation Depends.AndroidX.design
 
     //==================== Structure ====================
-    implementation depends.rxjava2.core
+    implementation Depends.Rx.RxJava
 
     //==================== Test ====================
-    testImplementation depends.junit
-    testImplementation depends.mockitoKotlin
-    testImplementation depends.robolectric.core
+    testImplementation Depends.Test.junit
+    testImplementation Depends.Test.mockitoKotlin
+    testImplementation Depends.Test.robolectric
 }
 
 // build a jar with source files
