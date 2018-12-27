@@ -27,7 +27,8 @@ dependencies {
 }
 ```
 
-`LATEST_VERSION` is  [![JitPack](https://jitpack.io/v/Kyash/validatable-textinput-layout.svg)](https://jitpack.io/#Kyash/validatable-textinput-layout)
+`LATEST_VERSION` is  [![JitPack](https://jitpack.io/v/Kyash/validatable-textinput-layout.svg)](https://jitpack.io/#Kyash/validatable-textinput-layout) which supports AndroidX.
+If you still use Support Library, please use version `0.3.0`.
 
 ## Basic usage
 You can use as same as `TextInputLayout` in layout xml.
