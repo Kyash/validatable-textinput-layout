@@ -4,8 +4,8 @@ import android.content.Context
 import co.kyash.vtl.example.api.MaterialDesignColorsApi
 import co.kyash.vtl.example.testing.RxImmediateSchedulerRule
 import co.kyash.vtl.validators.VtlValidator
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Ignore
@@ -18,23 +18,23 @@ import org.robolectric.RuntimeEnvironment
 @Suppress("unused")
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class MaterialDesignColorsValidatorTest(
-        private val text: String?,
-        private val errorMessage: String?
+    private val text: String?,
+    private val errorMessage: String?
 ) {
 
     companion object {
-        private val ERROR_MESSAGE = "This is not Material design color"
+        private const val ERROR_MESSAGE = "This is not Material design color"
 
         @JvmStatic
         @ParameterizedRobolectricTestRunner.Parameters
         fun data(): List<Array<out Any?>> {
             return listOf(
-                    arrayOf("Gold", ERROR_MESSAGE),
-                    arrayOf("Blue Red", ERROR_MESSAGE),
-                    arrayOf("Blue ", null),
-                    arrayOf(" Blue", null),
-                    arrayOf("Blue", null),
-                    arrayOf("Red", null)
+                arrayOf("Gold", ERROR_MESSAGE),
+                arrayOf("Blue Red", ERROR_MESSAGE),
+                arrayOf("Blue ", null),
+                arrayOf(" Blue", null),
+                arrayOf("Blue", null),
+                arrayOf("Red", null)
             )
         }
     }
