@@ -3,11 +3,8 @@ package dependencies
 @Suppress("unused")
 object Depends {
     object GradlePlugin {
-        const val android = "com.android.tools.build:gradle:3.2.1"
+        const val android = "com.android.tools.build:gradle:7.0.0"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
-        const val ktlint = "gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:3.0.0"
-        const val fabric = "io.fabric.tools:gradle:1.25.4"
-        const val androidMaven = "com.github.dcendents:android-maven-gradle-plugin:2.0"
     }
 
     object Test {
@@ -30,8 +27,7 @@ object Depends {
     }
 
     object Kotlin {
-        const val version = "1.3.11"
-        const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version"
+        const val version = "1.5.21"
     }
 
     object Stetho {
@@ -45,10 +41,10 @@ object Depends {
     }
 
     object Retrofit {
-        private const val version = "2.5.0"
+        private const val version = "2.9.0"
         const val core = "com.squareup.retrofit2:retrofit:$version"
         const val converterMoshi = "com.squareup.retrofit2:converter-moshi:$version"
-        const val adapterRxJava2 = "com.squareup.retrofit2:adapter-rxjava2:$version"
+        const val adapterRxJava3 = "com.squareup.retrofit2:adapter-rxjava3:$version"
     }
 
     object Kotshi {
@@ -58,8 +54,8 @@ object Depends {
     }
 
     object Rx {
-        const val RxJava = "io.reactivex.rxjava2:rxjava:2.2.4"
-        const val RxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.0"
-        const val RxKotlin = "io.reactivex.rxjava2:rxkotlin:2.3.0"
+        const val RxJava = "io.reactivex.rxjava3:rxjava:3.0.13"
+        const val RxAndroid = "io.reactivex.rxjava3:rxandroid:3.0.0"
+        const val RxKotlin = "io.reactivex.rxjava3:rxkotlin:3.0.1"
     }
 }

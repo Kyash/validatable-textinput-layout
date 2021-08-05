@@ -1,7 +1,7 @@
 package co.kyash.vtl.validators
 
 import android.content.Context
-import io.reactivex.Completable
+import io.reactivex.rxjava3.core.Completable
 
 interface VtlValidator {
 

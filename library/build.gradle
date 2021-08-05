@@ -3,10 +3,9 @@ import dependencies.Versions
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.github.dcendents.android-maven'
 
 def versionMajor = 1
-def versionMinor = 0
+def versionMinor = 1
 def versionPatch = 0
 
 group = 'co.kyash'
@@ -20,7 +19,6 @@ android {
         targetSdkVersion Versions.androidTargetSdkVersion
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "$versionMajor.$versionMinor.$versionPatch"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -35,9 +33,6 @@ android {
 }
 
 dependencies {
-    //==================== Kotlin ====================
-    implementation Depends.Kotlin.stdlib
-
     //==================== Support Library ====================
     implementation Depends.AndroidX.appCompat
     implementation Depends.AndroidX.design

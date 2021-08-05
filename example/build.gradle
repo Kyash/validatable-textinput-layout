@@ -4,8 +4,6 @@ import dependencies.Versions
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: "org.jlleitschuh.gradle.ktlint"
-apply plugin: 'io.fabric'
 apply from: "${rootDir.absolutePath}/versions.gradle"
 
 def versionMajor = 1
@@ -22,7 +20,6 @@ android {
         targetSdkVersion Versions.androidTargetSdkVersion
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "$versionMajor.$versionMinor.$versionPatch"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
         release {
@@ -61,9 +58,6 @@ android {
 dependencies {
     implementation project(':library')
 
-    //==================== Kotlin ====================
-    implementation Depends.Kotlin.stdlib
-
     //==================== Support Library ====================
     implementation Depends.AndroidX.appCompat
     implementation Depends.AndroidX.design
@@ -72,7 +66,7 @@ dependencies {
     //==================== Network ====================
     implementation Depends.Retrofit.core
     implementation Depends.Retrofit.converterMoshi
-    implementation Depends.Retrofit.adapterRxJava2
+    implementation Depends.Retrofit.adapterRxJava3
 
     //==================== Structure ====================
     implementation Depends.Kotshi.api
@@ -98,11 +92,4 @@ dependencies {
     androidTestImplementation Depends.Test.testRunner
     androidTestImplementation Depends.Test.Espresso.core
     androidTestImplementation Depends.Test.Espresso.intents
-}
-
-ktlint {
-    version = versions.ktlint
-    android = true
-    reporter = "checkstyle"
-    ignoreFailures = true
 }
