@@ -29,9 +29,6 @@ android {
             keyPassword "android"
         }
     }
-    dexOptions {
-        preDexLibraries false
-    }
     buildTypes {
         debug {
             applicationIdSuffix '.debug'
