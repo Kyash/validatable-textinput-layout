@@ -30,7 +30,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
 
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                artifactId = "validatable-textinput-layout"
+                artifact(sourcesJar)
+            }
+        }
+    }
 }
 
 dependencies {
@@ -47,7 +58,6 @@ dependencies {
     testImplementation Depends.Test.robolectric
 }
 
-// build a jar with source files
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
