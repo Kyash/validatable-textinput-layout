@@ -6,15 +6,11 @@ buildscript {
         jcenter()
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
-        maven { url 'https://maven.fabric.io/public' }
         maven { url "https://jitpack.io" }
     }
     dependencies {
         classpath Depends.GradlePlugin.android
         classpath Depends.GradlePlugin.kotlin
-        classpath Depends.GradlePlugin.ktlint
-        classpath Depends.GradlePlugin.fabric
-        classpath Depends.GradlePlugin.androidMaven
     }
 }
 

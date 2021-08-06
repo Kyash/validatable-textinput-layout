@@ -17,15 +17,14 @@ import co.kyash.vtl.validators.RequiredValidator
 import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
-import io.fabric.sdk.android.Fabric
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 
@@ -44,14 +43,13 @@ class MainActivity : AppCompatActivity() {
     private val api = Retrofit.Builder()
         .baseUrl("https://raw.githubusercontent.com")
         .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .client(OkHttpClient.Builder().addNetworkInterceptor(StethoInterceptor()).build())
         .build()
         .create(MaterialDesignColorsApi::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Fabric.with(this, Crashlytics())
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 

@@ -5,8 +5,8 @@ import co.kyash.vtl.VtlValidationFailureException
 import co.kyash.vtl.example.R
 import co.kyash.vtl.example.api.MaterialDesignColorsApi
 import co.kyash.vtl.validators.VtlValidator
-import io.reactivex.Completable
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 
 class MaterialDesignColorsValidator(
         private val api: MaterialDesignColorsApi,

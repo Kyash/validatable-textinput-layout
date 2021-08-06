@@ -15,10 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="0a7aa1279a42a1b8dd1e111287030f783b9ee2d2" />
-
         <activity android:name="co.kyash.vtl.example.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

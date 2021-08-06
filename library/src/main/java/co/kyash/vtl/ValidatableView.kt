@@ -1,8 +1,8 @@
 package co.kyash.vtl
 
 import co.kyash.vtl.validators.VtlValidator
-import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
 
 interface ValidatableView {
 

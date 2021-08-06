@@ -12,14 +12,14 @@ import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import co.kyash.vtl.validators.VtlValidator
 import com.google.android.material.textfield.TextInputLayout
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Consumer
-import io.reactivex.internal.functions.Functions
-import io.reactivex.processors.PublishProcessor
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.core.BackpressureStrategy
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.functions.Consumer
+import io.reactivex.rxjava3.internal.functions.Functions
+import io.reactivex.rxjava3.processors.PublishProcessor
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class ValidatableTextInputLayout @JvmOverloads constructor(
