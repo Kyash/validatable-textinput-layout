@@ -3,9 +3,8 @@ import dependencies.Depends
 buildscript {
     repositories {
         google()
-        jcenter()
         mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
+        gradlePluginPortal()
         maven { url "https://jitpack.io" }
     }
     dependencies {
@@ -17,7 +16,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven { url "https://jitpack.io" }
     }
 }

@@ -62,7 +62,9 @@ class HiraganaOnlyValidatorTest(
         if (errorMessage == null) {
             subject.validateAsCompletable(context, text).test().assertNoErrors().assertComplete()
         } else {
-            subject.validateAsCompletable(context, text).test().assertErrorMessage(errorMessage)
+            subject.validateAsCompletable(context, text).test().assertError { it ->
+                it.message == errorMessage
+            }
         }
     }
 

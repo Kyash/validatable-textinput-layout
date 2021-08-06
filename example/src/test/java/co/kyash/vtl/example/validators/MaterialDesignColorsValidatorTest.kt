@@ -6,7 +6,7 @@ import co.kyash.vtl.example.testing.RxImmediateSchedulerRule
 import co.kyash.vtl.validators.VtlValidator
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
@@ -67,7 +67,9 @@ class MaterialDesignColorsValidatorTest(
         if (errorMessage == null) {
             subject.validateAsCompletable(context, text).test().assertNoErrors().assertComplete()
         } else {
-            subject.validateAsCompletable(context, text).test().assertErrorMessage(errorMessage)
+            subject.validateAsCompletable(context, text).test().assertError {
+                it.message == errorMessage
+            }
         }
     }
 

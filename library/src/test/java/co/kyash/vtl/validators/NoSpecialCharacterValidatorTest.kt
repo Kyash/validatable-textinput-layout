@@ -71,7 +71,9 @@ class NoSpecialCharacterValidatorTest(
         if (errorMessage == null) {
             validator.validateAsCompletable(context, text).test().assertNoErrors().assertComplete()
         } else {
-            validator.validateAsCompletable(context, text).test().assertErrorMessage(errorMessage)
+            validator.validateAsCompletable(context, text).test().assertError { it ->
+                it.message == errorMessage
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ import dependencies.Versions
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
 
 def versionMajor = 1
 def versionMinor = 1
@@ -30,6 +31,21 @@ android {
         }
     }
 
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                artifactId = "validatable-textinput-layout"
+                artifact(sourcesJar)
+            }
+        }
+    }
 }
 
 dependencies {
@@ -46,7 +62,6 @@ dependencies {
     testImplementation Depends.Test.robolectric
 }
 
-// build a jar with source files
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
