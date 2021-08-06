@@ -8,10 +8,10 @@ object Depends {
     }
 
     object Test {
-        const val junit = "junit:junit:4.12"
-        const val testRunner = "androidx.test:runner:1.1.0"
+        const val junit = "junit:junit:4.13.2"
+        const val testRunner = "androidx.test:runner:1.4.0"
         const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0"
-        const val robolectric = "org.robolectric:robolectric:3.5.1"
+        const val robolectric = "org.robolectric:robolectric:4.6.1"
 
         object Espresso {
             const val core = "androidx.test.espresso:espresso-core:3.1.0-alpha4"
